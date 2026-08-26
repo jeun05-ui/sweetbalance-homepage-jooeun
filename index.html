@@ -1,66 +1,579 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>이주은의 홈페이지</title>
-  <style>
-    :root {
-      --bg: #f7f7f5;
-      --text: #2b2b2b;
-      --muted: #767672;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>스윗밸런스 | Eat fresh, be your Best.</title>
+<meta name="description" content="운동한 만큼 몸이 변합니다. 스윗밸런스가 당신의 운동 목표에 맞는 균형 잡힌 한 끼를 추천해드려요." />
 
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #1c1c1a;
-        --text: #f2f2ef;
-        --muted: #a3a39d;
-      }
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Chewy&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
 
-    html, body {
-      height: 100%;
-      margin: 0;
-    }
+<style>
+  :root {
+    --g: #00614E; --g2: #007C5E; --sw: #FDFFE6;
+    --seed: #84BA45; --soil: #896431; --sky: #50AADC;
+    --ink: #1B2A24; --char: #3A4742; --slate: #6B7571;
+    --mist: #C8CEC9; --paper: #F6F4E8;
+    --border: rgba(0,97,78,.15); --div: rgba(0,97,78,.09);
+    --sh-sm: 0 2px 8px rgba(27,42,36,.07);
+    --sh-md: 0 8px 24px rgba(27,42,36,.10);
+    --sh-brand: 0 8px 28px rgba(0,97,78,.20);
+    --r-sm: 8px; --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-2xl: 36px; --r-pill: 999px;
+    --en: 'Montserrat', sans-serif;
+    --kr: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--kr), var(--en);
+    background: var(--sw);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, svg { display: block; max-width: 100%; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; }
+  .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 96px 0; }
 
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      text-align: center;
-    }
+  .eyebrow {
+    font-family: var(--en); font-weight: 700; font-size: 12px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--g);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 8px;
+  }
+  .eyebrow::before { content: ''; width: 18px; height: 2px; background: var(--seed); border-radius: 2px; }
+  .sec-title {
+    font-family: var(--kr); font-weight: 800; font-size: 36px; letter-spacing: -.02em;
+    line-height: 1.25; color: var(--ink); margin-bottom: 14px;
+  }
+  .sec-sub { font-size: 16px; line-height: 1.75; color: var(--char); max-width: 620px; margin-bottom: 48px; }
 
-    .greeting {
-      font-size: 2rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-    }
+  /* Buttons */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    border-radius: var(--r-pill); font-weight: 600; font-size: 15px;
+    padding: 14px 28px; border: none; transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--g); color: var(--sw); box-shadow: var(--sh-brand); }
+  .btn-primary:hover { background: var(--g2); }
+  .btn-secondary { background: transparent; color: var(--g); border: 1.5px solid var(--g); }
+  .btn-secondary:hover { background: rgba(0,97,78,.06); }
+  .btn-accent { background: var(--seed); color: #fff; box-shadow: 0 8px 20px rgba(132,186,69,.28); }
+  .btn-accent:hover { background: #77a83c; }
+  .btn-accent:disabled { background: var(--mist); color: #fff; box-shadow: none; cursor: default; }
 
-    .date {
-      font-size: 1.1rem;
-      color: var(--muted);
-    }
-  </style>
+  /* Badges */
+  .badge {
+    display: inline-flex; align-items: center; padding: 5px 12px; border-radius: var(--r-pill);
+    font-size: 11px; font-weight: 700; letter-spacing: .04em; font-family: var(--en);
+  }
+  .badge-best { background: var(--seed); color: #fff; }
+  .badge-new { background: var(--g); color: var(--sw); }
+  .badge-tag { background: rgba(0,97,78,.09); color: var(--g); }
+
+  .card { background: #fff; border: 1px solid var(--border); border-radius: var(--r-lg); box-shadow: var(--sh-sm); }
+
+  /* ===== Header ===== */
+  header {
+    position: sticky; top: 0; z-index: 50; background: rgba(253,255,230,.9);
+    backdrop-filter: blur(8px); border-bottom: 1px solid var(--div);
+  }
+  header .container { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .logo { font-family: var(--en); font-weight: 800; font-size: 20px; color: var(--g); letter-spacing: -.02em; display: flex; align-items: center; gap: 6px; }
+  .logo span.dot { color: var(--seed); }
+  nav.main-nav { display: flex; align-items: center; gap: 28px; }
+  nav.main-nav a.nav-link { font-size: 14px; font-weight: 600; color: var(--char); }
+  nav.main-nav a.nav-link:hover { color: var(--g); }
+  header .btn { padding: 10px 20px; font-size: 13px; }
+
+  /* ===== Hero ===== */
+  #hero {
+    background: var(--g); position: relative; overflow: hidden;
+    padding: 120px 0 140px; color: var(--sw);
+  }
+  #hero .bg-word {
+    position: absolute; top: -40px; left: -20px; right: 0;
+    font-family: 'Chewy', var(--en); font-size: 220px; color: rgba(253,255,230,.05);
+    line-height: 1; white-space: nowrap; pointer-events: none; user-select: none;
+  }
+  #hero .blob {
+    position: absolute; border-radius: 50%; filter: blur(2px);
+  }
+  #hero .blob-1 { width: 340px; height: 340px; background: rgba(132,186,69,.18); top: -80px; right: -60px; }
+  #hero .blob-2 { width: 220px; height: 220px; background: rgba(253,255,230,.06); bottom: -60px; right: 240px; }
+  #hero .float-emoji { position: absolute; font-size: 64px; opacity: .5; filter: drop-shadow(0 12px 20px rgba(0,0,0,.15)); }
+  #hero .fe-1 { top: 18%; right: 8%; font-size: 88px; animation: float 6s ease-in-out infinite; }
+  #hero .fe-2 { bottom: 14%; right: 22%; animation: float 7s ease-in-out infinite .5s; }
+  #hero .fe-3 { top: 46%; right: 30%; font-size: 44px; opacity: .35; animation: float 5s ease-in-out infinite 1s; }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-16px); } }
+
+  #hero .hero-inner { position: relative; max-width: 620px; }
+  #hero .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; background: rgba(253,255,230,.12);
+    border: 1px solid rgba(253,255,230,.25); padding: 7px 16px; border-radius: var(--r-pill);
+    font-size: 13px; font-weight: 600; margin-bottom: 24px;
+  }
+  #hero h1 {
+    font-family: var(--kr); font-weight: 800; font-size: 56px; letter-spacing: -.03em;
+    line-height: 1.2; margin-bottom: 20px;
+  }
+  #hero h1 .accent { color: var(--seed); }
+  #hero .hero-sub { font-size: 17px; line-height: 1.8; color: rgba(253,255,230,.82); margin-bottom: 36px; max-width: 520px; }
+  #hero .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 36px; }
+  #hero .btn-secondary { border-color: rgba(253,255,230,.5); color: var(--sw); }
+  #hero .btn-secondary:hover { background: rgba(253,255,230,.1); }
+  #hero .hero-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+  #hero .hero-meta .badge-tag { background: rgba(253,255,230,.12); color: var(--sw); }
+
+  /* ===== Products ===== */
+  #products { background: var(--sw); }
+  .product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .product-card { overflow: hidden; display: flex; flex-direction: column; }
+  .product-visual {
+    height: 200px; display: flex; align-items: center; justify-content: center;
+    font-size: 84px; position: relative;
+  }
+  .product-visual.chicken { background: linear-gradient(135deg, #F1E4C8, #C9A96E); }
+  .product-visual.wrap { background: linear-gradient(135deg, #DCEBCB, #A9CC8A); }
+  .product-visual .badges { position: absolute; top: 14px; left: 14px; display: flex; gap: 6px; }
+  .product-body { padding: 24px; flex: 1; display: flex; flex-direction: column; }
+  .product-name-en { font-family: var(--en); font-weight: 700; font-size: 13px; color: var(--slate); letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; }
+  .product-name-kr { font-family: var(--kr); font-weight: 700; font-size: 22px; color: var(--ink); margin-bottom: 10px; }
+  .product-blurb { font-size: 14px; color: var(--char); line-height: 1.7; margin-bottom: 16px; }
+  .product-stats { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .product-tags { display: flex; gap: 6px; margin-bottom: 18px; flex-wrap: wrap; }
+  .product-foot { margin-top: auto; display: flex; align-items: center; justify-content: space-between; padding-top: 16px; border-top: 1px solid var(--div); }
+  .product-price { font-family: var(--en); font-weight: 800; font-size: 20px; color: var(--g); }
+  .product-why { background: var(--paper); border-radius: var(--r-md); padding: 12px 14px; font-size: 13px; color: var(--char); line-height: 1.6; margin-bottom: 16px; }
+  .product-why b { color: var(--g); }
+
+  /* ===== Recommender (feature) ===== */
+  #recommender { background: var(--paper); position: relative; }
+  .rec-panel {
+    background: #fff; border-radius: var(--r-xl); box-shadow: var(--sh-md);
+    border: 1px solid var(--border); padding: 44px; max-width: 920px; margin: 0 auto;
+  }
+  .rec-step-label { font-family: var(--en); font-weight: 700; font-size: 11px; letter-spacing: .12em; color: var(--slate); text-transform: uppercase; margin-bottom: 12px; }
+  .pill-group { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 32px; }
+  .pill-btn {
+    background: #fff; border: 1.5px solid var(--border); color: var(--char);
+    padding: 12px 20px; border-radius: var(--r-pill); font-size: 14px; font-weight: 600;
+    transition: all .15s ease;
+  }
+  .pill-btn:hover { border-color: var(--g); color: var(--g); }
+  .pill-btn.active { background: var(--g); border-color: var(--g); color: var(--sw); box-shadow: var(--sh-brand); }
+
+  #recommend-btn { width: 100%; padding: 16px; font-size: 16px; margin-bottom: 8px; }
+  .rec-placeholder { text-align: center; padding: 40px 20px; color: var(--slate); font-size: 14px; }
+  .rec-placeholder .icon { font-size: 40px; margin-bottom: 12px; opacity: .6; }
+
+  .rec-results { display: none; margin-top: 36px; }
+  .rec-results.show { display: block; animation: fadeUp .5s ease; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+
+  .rec-target-line {
+    background: rgba(0,97,78,.06); border: 1px solid var(--border); border-radius: var(--r-md);
+    padding: 16px 20px; font-size: 14px; color: var(--g); font-weight: 600; margin-bottom: 24px; line-height: 1.6;
+  }
+  .rec-target-line span.big { font-family: var(--en); font-weight: 800; font-size: 16px; }
+
+  .rec-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .rec-card { border: 1px solid var(--border); border-radius: var(--r-lg); padding: 22px; position: relative; background: var(--sw); }
+  .rec-card.best { border: 2px solid var(--seed); box-shadow: 0 10px 24px rgba(132,186,69,.18); }
+  .rec-card .best-tag {
+    position: absolute; top: -12px; left: 20px; background: var(--seed); color: #fff;
+    font-family: var(--en); font-weight: 700; font-size: 10px; letter-spacing: .08em;
+    padding: 5px 12px; border-radius: var(--r-pill);
+  }
+  .rec-card-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .rec-emoji { font-size: 40px; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; background: #fff; border-radius: var(--r-md); flex-shrink: 0; box-shadow: var(--sh-sm); }
+  .rec-name { font-family: var(--kr); font-weight: 700; font-size: 17px; color: var(--ink); }
+  .rec-name-en { font-family: var(--en); font-size: 11px; color: var(--slate); text-transform: uppercase; letter-spacing: .04em; }
+
+  .gauge-row { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .gauge { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 1s ease; }
+  .gauge-inner { width: 44px; height: 44px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; font-family: var(--en); font-weight: 800; font-size: 12px; color: var(--g); }
+  .gauge-label { font-size: 12px; color: var(--slate); line-height: 1.5; }
+  .gauge-label b { color: var(--ink); font-size: 13px; }
+
+  .macro-bars { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+  .macro-row { display: grid; grid-template-columns: 44px 1fr 44px; align-items: center; gap: 10px; font-size: 12px; color: var(--slate); }
+  .macro-track { height: 8px; border-radius: 999px; background: var(--div); overflow: hidden; }
+  .macro-fill { height: 100%; border-radius: 999px; width: 0%; transition: width 1s cubic-bezier(.22,1,.36,1); }
+  .macro-fill.protein { background: var(--g); }
+  .macro-fill.carb { background: var(--seed); }
+  .macro-fill.fat { background: var(--slate); }
+
+  .rec-why { font-size: 13px; line-height: 1.7; color: var(--char); background: var(--paper); border-radius: var(--r-md); padding: 12px 14px; }
+  .rec-summary { margin-top: 28px; text-align: center; font-family: var(--kr); font-weight: 700; font-size: 18px; color: var(--g); }
+
+  /* ===== Brand / Footer ===== */
+  #brand { background: var(--g); color: var(--sw); }
+  #brand .eyebrow { color: var(--seed); }
+  #brand .eyebrow::before { background: var(--sw); }
+  .mission-box {
+    background: rgba(253,255,230,.06); border: 1px solid rgba(253,255,230,.15);
+    border-radius: var(--r-xl); padding: 36px 40px; margin-bottom: 48px;
+  }
+  .mission-box .kr { font-family: var(--kr); font-weight: 700; font-size: 24px; line-height: 1.5; margin-bottom: 10px; }
+  .mission-box .en { font-size: 14px; color: rgba(253,255,230,.65); font-style: italic; }
+
+  .slogan-en { font-family: var(--en); font-weight: 800; font-size: 30px; letter-spacing: -.02em; margin-bottom: 6px; }
+  .slogan-kr { font-family: var(--kr); font-size: 16px; color: rgba(253,255,230,.75); margin-bottom: 44px; }
+
+  .personality-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 44px; }
+  .personality-card { background: rgba(253,255,230,.06); border: 1px solid rgba(253,255,230,.15); border-radius: var(--r-lg); padding: 22px; }
+  .personality-card .word { font-family: var(--en); font-weight: 800; font-size: 22px; color: var(--seed); margin-bottom: 2px; }
+  .personality-card .kr { font-family: var(--kr); font-size: 14px; color: rgba(253,255,230,.9); margin-bottom: 10px; }
+  .personality-card .desc { font-size: 12.5px; line-height: 1.65; color: rgba(253,255,230,.6); }
+
+  .target-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 56px; }
+  .target-chips span { padding: 8px 16px; border-radius: var(--r-pill); background: rgba(253,255,230,.1); font-size: 13px; font-weight: 600; }
+
+  footer.site-footer {
+    border-top: 1px solid rgba(253,255,230,.18); padding-top: 28px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    font-size: 12.5px; color: rgba(253,255,230,.55); font-family: var(--en); font-weight: 500;
+  }
+  footer.site-footer .tagline { font-style: italic; color: rgba(253,255,230,.75); }
+
+  @media (max-width: 860px) {
+    section { padding: 64px 0; }
+    #hero { padding: 88px 0 100px; }
+    #hero h1 { font-size: 38px; }
+    #hero .float-emoji, #hero .bg-word { display: none; }
+    .product-grid, .rec-cards { grid-template-columns: 1fr; }
+    .personality-grid { grid-template-columns: 1fr; }
+    .rec-panel { padding: 28px 20px; }
+    nav.main-nav { display: none; }
+    footer.site-footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
 </head>
 <body>
-  <div>
-    <p class="greeting">안녕하세요, 이주은입니다</p>
-    <p class="date" id="today"></p>
-  </div>
 
-  <script>
-    const today = new Date();
-    const formatted = today.toLocaleDateString("ko-KR", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      weekday: "long",
+<header>
+  <div class="container">
+    <div class="logo">SweetBalance<span class="dot">.</span></div>
+    <nav class="main-nav">
+      <a class="nav-link" href="#products">대표 메뉴</a>
+      <a class="nav-link" href="#recommender">식단 추천</a>
+      <a class="nav-link" href="#brand">브랜드</a>
+    </nav>
+    <a class="btn btn-primary" href="#recommender" style="padding:10px 20px;font-size:13px;">추천받기</a>
+  </div>
+</header>
+
+<!-- ===== Hero ===== -->
+<section id="hero">
+  <div class="bg-word">SweetBalance</div>
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <span class="float-emoji fe-1">💪</span>
+  <span class="float-emoji fe-2">🥗</span>
+  <span class="float-emoji fe-3">🍗</span>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">🏋️ 운동하는 당신을 위한 브랜드</div>
+      <h1>운동한 만큼,<br>몸은 <span class="accent">정직하게</span> 변합니다.</h1>
+      <p class="hero-sub">스윗밸런스는 당신이 오늘 흘린 땀을 배신하지 않는 한 끼로 답합니다. 고단백 · 저당 · 신선한 재료로, 운동한 만큼 제대로 회복하세요.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#recommender">맞춤 식단 추천받기</a>
+        <a class="btn btn-secondary" href="#products">대표 메뉴 보기</a>
+      </div>
+      <div class="hero-meta">
+        <span class="badge badge-tag">고단백</span>
+        <span class="badge badge-tag">저당</span>
+        <span class="badge badge-tag">신선 재료</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Products ===== -->
+<section id="products">
+  <div class="container">
+    <div class="eyebrow">Signature Menu</div>
+    <h2 class="sec-title">운동하는 당신을 위한 대표 메뉴</h2>
+    <p class="sec-sub">땀 흘린 만큼 채워야 몸이 변합니다. 스윗밸런스가 엄선한 두 가지 시그니처 메뉴예요.</p>
+
+    <div class="product-grid">
+      <div class="product-card card">
+        <div class="product-visual chicken">
+          <div class="badges"><span class="badge badge-best">BEST</span></div>
+          🍗
+        </div>
+        <div class="product-body">
+          <div class="product-name-en">Chicken Breast Steak</div>
+          <div class="product-name-kr">닭가슴살 스테이크</div>
+          <p class="product-blurb">닭가슴살 120g을 그릴에 구워 촉촉하게. 근손실 걱정 없이 회복하는 한 끼예요.</p>
+          <div class="product-stats">
+            <span class="badge badge-tag">단백질 32g</span>
+            <span class="badge badge-tag">280kcal</span>
+          </div>
+          <div class="product-tags">
+            <span class="badge badge-tag">고단백</span>
+            <span class="badge badge-tag">저탄수</span>
+          </div>
+          <div class="product-why"><b>운동하는 분들께 좋은 이유.</b> 운동 직후 필요한 단백질을 가장 빠르고 확실하게 채워줘요.</div>
+          <div class="product-foot">
+            <span class="product-price">₩7,500</span>
+            <button class="btn btn-secondary" style="padding:9px 18px;font-size:13px;">담기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card card">
+        <div class="product-visual wrap">
+          <div class="badges"><span class="badge badge-new">NEW</span></div>
+          🌯
+        </div>
+        <div class="product-body">
+          <div class="product-name-en">Salad Wrap</div>
+          <div class="product-name-kr">샐러드랩</div>
+          <p class="product-blurb">신선한 채소와 통밀 랩에 담은 균형 잡힌 한 끼. 운동 전후 어디서든 간편하게 드세요.</p>
+          <div class="product-stats">
+            <span class="badge badge-tag">단백질 24g</span>
+            <span class="badge badge-tag">350kcal</span>
+          </div>
+          <div class="product-tags">
+            <span class="badge badge-tag">균형식</span>
+            <span class="badge badge-tag">간편식</span>
+          </div>
+          <div class="product-why"><b>운동하는 분들께 좋은 이유.</b> 탄수화물과 단백질을 함께 채워 다음 운동의 에너지가 되어줘요.</div>
+          <div class="product-foot">
+            <span class="product-price">₩6,900</span>
+            <button class="btn btn-secondary" style="padding:9px 18px;font-size:13px;">담기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Recommender (star feature) ===== -->
+<section id="recommender">
+  <div class="container">
+    <div class="eyebrow">Signature Feature</div>
+    <h2 class="sec-title">먹어도 살 안 찌는, 나만의 균형 식단 찾기</h2>
+    <p class="sec-sub">오늘 어떤 운동을 얼마나 하셨나요? 목표에 맞는 칼로리와 단백질을 계산해서, 살찌지 않으면서 영양은 고르게 채우는 메뉴를 추천해드려요.</p>
+
+    <div class="rec-panel">
+      <div class="rec-step-label">Step 1 · 목표를 선택하세요</div>
+      <div class="pill-group" id="goal-group">
+        <button class="pill-btn active" data-goal="bulk">💪 근육 증가</button>
+        <button class="pill-btn" data-goal="cut">🔥 체지방 감량</button>
+        <button class="pill-btn" data-goal="maintain">⚖️ 컨디션 유지</button>
+      </div>
+
+      <div class="rec-step-label">Step 2 · 오늘 운동 강도는요?</div>
+      <div class="pill-group" id="intensity-group">
+        <button class="pill-btn" data-intensity="light">🚶 가볍게</button>
+        <button class="pill-btn active" data-intensity="normal">🏃 보통</button>
+        <button class="pill-btn" data-intensity="high">🏋️ 고강도</button>
+      </div>
+
+      <button class="btn btn-accent" id="recommend-btn">🍽️ 내 식단 추천받기</button>
+
+      <div class="rec-placeholder" id="rec-placeholder">
+        <div class="icon">🥗</div>
+        목표와 오늘의 운동 강도를 고르고, 추천받기를 눌러보세요.
+      </div>
+
+      <div class="rec-results" id="rec-results">
+        <div class="rec-target-line" id="rec-target-line"></div>
+        <div class="rec-cards" id="rec-cards"></div>
+        <div class="rec-summary" id="rec-summary"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Brand ===== -->
+<section id="brand">
+  <div class="container">
+    <div class="eyebrow">Brand</div>
+    <h2 class="sec-title" style="color:var(--sw);">스윗밸런스 이야기</h2>
+
+    <div class="mission-box">
+      <div class="kr">진정으로 건강한 식사를 통해,<br>누구나 목표와 행복을 이룰 수 있는 삶을 만듭니다.</div>
+      <div class="en">"Through truly healthy meals, we help everyone build a life where they can reach their goals and find happiness."</div>
+    </div>
+
+    <div class="slogan-en">Eat fresh, be your Best.</div>
+    <div class="slogan-kr">진정으로 건강한 한 끼, 오늘도 균형있게.</div>
+
+    <div class="personality-grid">
+      <div class="personality-card">
+        <div class="word">Warm</div>
+        <div class="kr">따뜻한</div>
+        <div class="desc">음식처럼, 브랜드도 사람을 품습니다. 건강을 훈계하지 않고 응원합니다.</div>
+      </div>
+      <div class="personality-card">
+        <div class="word">Fresh</div>
+        <div class="kr">신선한</div>
+        <div class="desc">재료처럼, 언어와 디자인도 가볍고 선명하게. 군더더기 없이.</div>
+      </div>
+      <div class="personality-card">
+        <div class="word">Honest</div>
+        <div class="kr">정직한</div>
+        <div class="desc">칼로리와 영양소를 숨기지 않습니다. 숫자가 곧 신뢰입니다.</div>
+      </div>
+    </div>
+
+    <div class="target-chips">
+      <span>운동 · 다이어트 루틴 유지자</span>
+      <span>건강을 챙기고 싶은 직장인</span>
+      <span>편의를 중시하는 1인 가구</span>
+      <span>저당 · 고단백 식단 관심자</span>
+    </div>
+
+    <footer class="site-footer">
+      <span>© 2026 SWB Corporation. All rights reserved.</span>
+      <span class="tagline">Eat fresh, be your Best.</span>
+    </footer>
+  </div>
+</section>
+
+<script>
+  var PRODUCTS = [
+    { key:'chicken', nameKr:'닭가슴살 스테이크', nameEn:'Chicken Breast Steak', emoji:'🍗', kcal:280, protein:32, carb:8,  fat:9,  tags:['고단백','저탄수'] },
+    { key:'wrap',    nameKr:'샐러드랩',           nameEn:'Salad Wrap',           emoji:'🌯', kcal:350, protein:24, carb:30, fat:14, tags:['균형식','간편식'] },
+    { key:'cobb',    nameKr:'콥샐러드',           nameEn:'Cobb Salad',           emoji:'🥗', kcal:420, protein:23, carb:18, fat:22, tags:['신선함','포만감'] },
+    { key:'bowl',    nameKr:'현미 단백 볼',        nameEn:'Brown Rice Protein Bowl', emoji:'🍚', kcal:480, protein:28, carb:55, fat:12, tags:['탄수보충','벌크업'] },
+    { key:'salmon',  nameKr:'그릴드 연어 샐러드',   nameEn:'Grilled Salmon Salad', emoji:'🐟', kcal:390, protein:30, carb:15, fat:20, tags:['오메가3','회복'] },
+    { key:'yogurt',  nameKr:'그릭요거트 볼',        nameEn:'Greek Yogurt Bowl',    emoji:'🥣', kcal:260, protein:20, carb:22, fat:8,  tags:['저칼로리','가벼운'] }
+  ];
+
+  var GOAL_LABEL = { bulk:'근육 증가', cut:'체지방 감량', maintain:'컨디션 유지' };
+  var GOAL_BASE_KCAL = { bulk:480, cut:320, maintain:400 };
+  var GOAL_PROTEIN_MIN = { bulk:28, cut:30, maintain:24 };
+  var INTENSITY_LABEL = { light:'가볍게 움직인', normal:'무난하게 운동한', high:'제대로 태운' };
+  var INTENSITY_KCAL_ADJ = { light:-60, normal:0, high:80 };
+  var INTENSITY_PROTEIN_ADJ = { light:0, normal:0, high:4 };
+
+  var MACRO_SCALE = { protein:35, carb:60, fat:25 };
+
+  var state = { goal:'bulk', intensity:'normal' };
+
+  document.querySelectorAll('#goal-group .pill-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#goal-group .pill-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.goal = btn.dataset.goal;
     });
-    document.getElementById("today").textContent = formatted;
-  </script>
+  });
+
+  document.querySelectorAll('#intensity-group .pill-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('#intensity-group .pill-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      state.intensity = btn.dataset.intensity;
+    });
+  });
+
+  function computeTargets(goal, intensity){
+    var kcal = GOAL_BASE_KCAL[goal] + INTENSITY_KCAL_ADJ[intensity];
+    var proteinMin = GOAL_PROTEIN_MIN[goal] + INTENSITY_PROTEIN_ADJ[intensity];
+    return { kcal:kcal, proteinMin:proteinMin };
+  }
+
+  function scoreProduct(p, targets){
+    var score = 100;
+    score -= Math.abs(p.kcal - targets.kcal) / 6;
+    if (p.protein < targets.proteinMin) {
+      score -= (targets.proteinMin - p.protein) * 3;
+    } else {
+      score += Math.min((p.protein - targets.proteinMin) * 0.5, 6);
+    }
+    return Math.max(0, Math.min(100, Math.round(score)));
+  }
+
+  function gaugeColor(score){
+    if (score >= 80) return 'var(--seed)';
+    if (score >= 55) return 'var(--g2)';
+    return 'var(--mist)';
+  }
+
+  function macroRow(label, value, scaleKey, cls){
+    var pct = Math.min(100, Math.round((value / MACRO_SCALE[scaleKey]) * 100));
+    return '' +
+      '<div class="macro-row">' +
+        '<span>' + label + '</span>' +
+        '<div class="macro-track"><div class="macro-fill ' + cls + '" data-pct="' + pct + '" style="width:0%"></div></div>' +
+        '<span>' + value + 'g</span>' +
+      '</div>';
+  }
+
+  function renderResults(){
+    var targets = computeTargets(state.goal, state.intensity);
+    var scored = PRODUCTS.map(function(p){
+      return Object.assign({}, p, { score: scoreProduct(p, targets) });
+    }).sort(function(a,b){ return b.score - a.score; });
+    var top2 = scored.slice(0, 2);
+
+    document.getElementById('rec-target-line').innerHTML =
+      '오늘의 목표 &middot; <span class="big">' + GOAL_LABEL[state.goal] + '</span> · ' +
+      INTENSITY_LABEL[state.intensity] + ' 하루 &mdash; 약 <span class="big">' + targets.kcal + 'kcal</span> · ' +
+      '단백질 <span class="big">' + targets.proteinMin + 'g</span> 이상이 필요해요.';
+
+    var cardsHtml = top2.map(function(p, i){
+      var isBest = i === 0;
+      var color = gaugeColor(p.score);
+      return '' +
+        '<div class="rec-card' + (isBest ? ' best' : '') + '">' +
+          (isBest ? '<span class="best-tag">베스트 매칭</span>' : '') +
+          '<div class="rec-card-top">' +
+            '<div class="rec-emoji">' + p.emoji + '</div>' +
+            '<div>' +
+              '<div class="rec-name-en">' + p.nameEn + '</div>' +
+              '<div class="rec-name">' + p.nameKr + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="gauge-row">' +
+            '<div class="gauge" data-score="' + p.score + '" style="background:conic-gradient(' + color + ' 0%, var(--mist) 0%)">' +
+              '<div class="gauge-inner">' + p.score + '점</div>' +
+            '</div>' +
+            '<div class="gauge-label">밸런스 매칭 점수<br><b>' + p.kcal + 'kcal · 단백질 ' + p.protein + 'g</b></div>' +
+          '</div>' +
+          '<div class="macro-bars">' +
+            macroRow('단백질', p.protein, 'protein', 'protein') +
+            macroRow('탄수화물', p.carb, 'carb', 'carb') +
+            macroRow('지방', p.fat, 'fat', 'fat') +
+          '</div>' +
+          '<div class="rec-why">' + p.nameKr + '은(는) 단백질 ' + p.protein + 'g · ' + p.kcal + 'kcal로, ' +
+            INTENSITY_LABEL[state.intensity] + ' 오늘 ' + GOAL_LABEL[state.goal] + '에 딱 맞는 균형이에요.</div>' +
+        '</div>';
+    }).join('');
+
+    document.getElementById('rec-cards').innerHTML = cardsHtml;
+    document.getElementById('rec-summary').textContent = '운동한 만큼, 몸이 변합니다. 오늘 그 변화를 위한 한 끼예요.';
+
+    document.getElementById('rec-placeholder').style.display = 'none';
+    var resultsEl = document.getElementById('rec-results');
+    resultsEl.classList.add('show');
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        document.querySelectorAll('.macro-fill').forEach(function(el){
+          el.style.width = el.dataset.pct + '%';
+        });
+        document.querySelectorAll('.gauge').forEach(function(el){
+          var score = el.dataset.score;
+          var color = gaugeColor(score);
+          el.style.background = 'conic-gradient(' + color + ' ' + (score * 3.6) + 'deg, var(--mist) 0deg)';
+        });
+      });
+    });
+  }
+
+  document.getElementById('recommend-btn').addEventListener('click', renderResults);
+</script>
+
 </body>
 </html>
