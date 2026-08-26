@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>스윗밸런스 홈페이지 제작 요약</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+<style>
+  :root {
+    --g: #00614E; --g2: #007C5E; --sw: #FDFFE6;
+    --seed: #84BA45; --ink: #1B2A24; --char: #3A4742; --slate: #6B7571;
+    --mist: #C8CEC9; --paper: #F6F4E8;
+    --border: rgba(0,97,78,.15); --div: rgba(0,97,78,.09);
+    --r-md: 14px; --r-lg: 20px; --r-xl: 28px; --r-pill: 999px;
+    --en: 'Montserrat', sans-serif;
+    --kr: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--kr), var(--en); background: var(--sw); color: var(--ink); line-height: 1.6; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 24px 80px; }
+
+  header.hero { background: var(--g); color: var(--sw); padding: 72px 24px 56px; text-align: center; }
+  header.hero .eyebrow { font-family: var(--en); font-weight: 700; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--seed); margin-bottom: 14px; }
+  header.hero h1 { font-size: 34px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 14px; }
+  header.hero p { font-size: 16px; color: rgba(253,255,230,.8); max-width: 560px; margin: 0 auto; }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--div); }
+  section:last-child { border-bottom: none; }
+  .sec-eyebrow { font-family: var(--en); font-weight: 700; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--g); margin-bottom: 10px; }
+  .sec-title { font-size: 24px; font-weight: 800; letter-spacing: -.01em; margin-bottom: 12px; }
+  .sec-sub { font-size: 15px; color: var(--char); max-width: 640px; margin-bottom: 32px; }
+
+  .updown { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .updown .box { border-radius: var(--r-lg); padding: 24px; }
+  .updown .as-is { background: var(--paper); border: 1px solid var(--border); }
+  .updown .to-be { background: var(--g); color: var(--sw); }
+  .updown .label { font-family: var(--en); font-weight: 800; font-size: 12px; letter-spacing: .1em; margin-bottom: 10px; }
+  .updown .as-is .label { color: var(--slate); }
+  .updown .to-be .label { color: var(--seed); }
+  .updown ul { padding-left: 18px; font-size: 14px; line-height: 1.8; }
+  .updown .to-be ul { color: rgba(253,255,230,.9); }
+
+  .flow-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .flow-card { background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); padding: 18px 16px; text-align: center; }
+  .flow-card .num { font-family: var(--en); font-weight: 800; font-size: 11px; color: var(--seed); letter-spacing: .1em; margin-bottom: 8px; }
+  .flow-card .emoji { font-size: 30px; margin-bottom: 8px; }
+  .flow-card .title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .flow-card .desc { font-size: 12px; color: var(--slate); line-height: 1.5; }
+
+  .feature-box { background: var(--paper); border: 1px solid var(--border); border-radius: var(--r-xl); padding: 32px; }
+  .feature-box h3 { font-size: 18px; margin-bottom: 10px; color: var(--g); }
+  .feature-box p { font-size: 14.5px; color: var(--char); margin-bottom: 16px; }
+  .step-list { display: flex; flex-direction: column; gap: 10px; }
+  .step-list .step { display: flex; gap: 12px; align-items: flex-start; background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); padding: 12px 16px; }
+  .step-list .step .dot { width: 24px; height: 24px; background: var(--g); color: var(--sw); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--en); font-weight: 700; font-size: 12px; flex-shrink: 0; }
+  .step-list .step .txt { font-size: 13.5px; color: var(--char); line-height: 1.6; }
+  .step-list .step .txt b { color: var(--ink); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  th { text-align: left; padding: 10px 12px; background: rgba(0,97,78,.06); font-weight: 700; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--g); }
+  td { padding: 12px; border-bottom: 1px solid var(--div); color: var(--char); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td.q { color: var(--g); font-weight: 700; width: 26%; }
+
+  .filelist { display: flex; flex-direction: column; gap: 8px; }
+  .filelist .f { display: flex; gap: 10px; align-items: center; background: #fff; border: 1px solid var(--border); border-radius: var(--r-md); padding: 10px 14px; font-size: 13px; }
+  .filelist .f code { font-family: ui-monospace, Menlo, monospace; color: var(--g); background: rgba(0,97,78,.07); padding: 2px 7px; border-radius: 5px; }
+  .filelist .f span.tag { margin-left: auto; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: var(--r-pill); background: var(--seed); color: #fff; }
+
+  footer.foot { text-align: center; padding: 40px 24px; color: var(--slate); font-size: 12.5px; }
+
+  @media (max-width: 720px) {
+    .updown, .flow-grid { grid-template-columns: 1fr 1fr; }
+    header.hero h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="eyebrow">Pull Request Summary</div>
+  <h1>스윗밸런스 홈페이지 — 첫 번째 초안</h1>
+  <p>운동하는 고객을 위한 "운동한 만큼 몸이 변한다" 메시지와, 살찌지 않으면서 영양은 고르게 채우는 맞춤 식단 추천기를 담았습니다.</p>
+</header>
+
+<div class="wrap">
+
+  <section>
+    <div class="sec-eyebrow">01 — AS-IS / TO-BE</div>
+    <h2 class="sec-title">무엇이 바뀌었나요</h2>
+    <div class="updown">
+      <div class="box as-is">
+        <div class="label">AS-IS</div>
+        <ul>
+          <li>이름과 오늘 날짜만 보여주는 인사 페이지</li>
+          <li>스윗밸런스 브랜드 요소 없음</li>
+          <li>제품 소개, 인터랙션 없음</li>
+        </ul>
+      </div>
+      <div class="box to-be">
+        <div class="label">TO-BE</div>
+        <ul>
+          <li>디자인 시스템 기반 4개 섹션 랜딩 페이지</li>
+          <li>대표 제품 2종 + 브랜드 스토리 소개</li>
+          <li>실제로 작동하는 맞춤 식단 추천기 탑재</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-eyebrow">02 — Page Structure</div>
+    <h2 class="sec-title">화면 구성</h2>
+    <p class="sec-sub">index.html 한 파일로 제작. 외부 이미지 없이 색·도형·이모지로만 표현했습니다.</p>
+    <div class="flow-grid">
+      <div class="flow-card">
+        <div class="num">01</div>
+        <div class="emoji">💪</div>
+        <div class="title">첫 화면</div>
+        <div class="desc">"운동한 만큼, 몸은 정직하게 변합니다."</div>
+      </div>
+      <div class="flow-card">
+        <div class="num">02</div>
+        <div class="emoji">🍗</div>
+        <div class="title">대표 제품</div>
+        <div class="desc">닭가슴살 스테이크 · 샐러드랩</div>
+      </div>
+      <div class="flow-card">
+        <div class="num">03</div>
+        <div class="emoji">🥗</div>
+        <div class="title">식단 추천기</div>
+        <div class="desc">이 페이지의 주인공 기능</div>
+      </div>
+      <div class="flow-card">
+        <div class="num">04</div>
+        <div class="emoji">🌿</div>
+        <div class="title">브랜드 소개</div>
+        <div class="desc">미션 · 슬로건 · 브랜드 성격</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-eyebrow">03 — Signature Feature</div>
+    <h2 class="sec-title">주인공 기능: 맞춤 식단 추천기</h2>
+    <p class="sec-sub">"먹어도 살 안 찌고, 영양이 고른 식단을 추천해줬으면 좋겠다"는 아이디어를 실제로 계산이 작동하는 기능으로 구현했습니다.</p>
+    <div class="feature-box">
+      <h3>어떻게 작동하나요</h3>
+      <div class="step-list">
+        <div class="step">
+          <div class="dot">1</div>
+          <div class="txt"><b>목표 선택</b> — 근육 증가 / 체지방 감량 / 컨디션 유지 중 하나를 고릅니다.</div>
+        </div>
+        <div class="step">
+          <div class="dot">2</div>
+          <div class="txt"><b>오늘 운동 강도 선택</b> — 가볍게 / 보통 / 고강도 중 하나를 고릅니다.</div>
+        </div>
+        <div class="step">
+          <div class="dot">3</div>
+          <div class="txt"><b>목표 칼로리 · 단백질 자동 계산</b> — 선택 조합에 따라 오늘 필요한 kcal과 최소 단백질(g)을 계산합니다.</div>
+        </div>
+        <div class="step">
+          <div class="dot">4</div>
+          <div class="txt"><b>메뉴 6종과 매칭</b> — 스윗밸런스 메뉴 중 계산된 목표에 가장 가까운 2개를 밸런스 매칭 점수(0~100점)로 골라줍니다.</div>
+        </div>
+        <div class="step">
+          <div class="dot">5</div>
+          <div class="txt"><b>결과 시각화</b> — 매칭 점수 게이지, 단백질·탄수화물·지방 막대그래프, 추천 이유를 함께 보여줍니다. "운동한 만큼, 몸이 변합니다" 메시지로 마무리됩니다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-eyebrow">04 — Interview → Page</div>
+    <h2 class="sec-title">반영된 나의 답변</h2>
+    <p class="sec-sub">인터뷰에서 답한 5가지가 페이지 어디에, 어떻게 들어갔는지 정리했습니다.</p>
+    <table>
+      <thead><tr><th>질문</th><th>답변</th><th>반영 위치</th></tr></thead>
+      <tbody>
+        <tr><td class="q">1. 고객</td><td>운동하는 사람</td><td>전체 카피 톤, 제품 선정, 추천기 로직 모두 운동하는 사람 기준으로 설계</td></tr>
+        <tr><td class="q">2. 첫 문장</td><td>운동한 만큼 몸이 변한다</td><td>히어로 헤드라인 "운동한 만큼, 몸은 정직하게 변합니다." + 추천기 결과 하단 요약 문구</td></tr>
+        <tr><td class="q">3. 대표 제품</td><td>닭가슴살 스테이크, 샐러드랩</td><td>대표 제품 섹션 2개 카드로 소개, 추천기 데이터에도 포함</td></tr>
+        <tr><td class="q">4. 아이디어 기능</td><td>살 안 찌고 영양 고른 식단 제안</td><td>페이지의 주인공 — 맞춤 식단 추천기 (목표·운동 강도 기반 실시간 계산)</td></tr>
+        <tr><td class="q">5. 분위기</td><td>신선한 초록 + 미니멀 화이트</td><td>디자인 시스템의 Vital Green(#00614E) + Sunshine White(#FDFFE6) 베이스와 자연스럽게 일치, Seed Green을 유일한 포인트 컬러로 통일</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <div class="sec-eyebrow">05 — Changed Files</div>
+    <h2 class="sec-title">변경 파일 목록</h2>
+    <div class="filelist">
+      <div class="f"><code>index.html</code> 스윗밸런스 홈페이지 (신규 작성)<span class="tag">MAIN</span></div>
+      <div class="f"><code>docs/pr-summary.html</code> 이 PR 설명 원페이저</div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="foot">SweetBalance Homepage · Eat fresh, be your Best.</footer>
+
+</body>
+</html>
