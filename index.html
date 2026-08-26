@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>이주은의 홈페이지</title>
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --text: #2b2b2b;
+      --muted: #767672;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1c1c1a;
+        --text: #f2f2ef;
+        --muted: #a3a39d;
+      }
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      text-align: center;
+    }
+
+    .greeting {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .date {
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p class="greeting">안녕하세요, 이주은입니다</p>
+    <p class="date" id="today"></p>
+  </div>
+
+  <script>
+    const today = new Date();
+    const formatted = today.toLocaleDateString("ko-KR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
+    });
+    document.getElementById("today").textContent = formatted;
+  </script>
+</body>
+</html>
